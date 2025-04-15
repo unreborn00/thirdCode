@@ -9,6 +9,7 @@ from selenium.webdriver.support.select import Select
 class DemoTest:
     def baseCode(self):
         option = webdriver.ChromeOptions()
+        option.add_argument("headless")
         driver = webdriver.Chrome(options=option)
         wait = WebDriverWait(driver, 10)
         driver.get("https://v4.practicesoftwaretesting.com/#/")
@@ -23,10 +24,10 @@ class DemoTest:
         hammer_chkbox = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[data-test='category-3']")))
         hammer_chkbox.click()
         time.sleep(2)
-        return driver,wait
+        return driver,wait, hammer_chkbox
 
     #Click on all hammers, get their name, price, and add them to cart
-    def addToCart(self,driver, wait,):
+    def addToCart(self,driver, wait,hammer_chkbox):
         allHammerNames = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, "h5[class='card-title']")))
         print(len(allHammerNames))
         n = len(allHammerNames)
@@ -50,23 +51,17 @@ class DemoTest:
                 time.sleep(1.5)
         except Exception as e:
             print(f"There is an exception : {e}")
-
-
+    def quit(self):
         driver.quit()
 
 
+if __name__ == "__main__":
+    dt = DemoTest()
+    driver, wait = dt.baseCode()
+    hammer_chkbox = dt.searchSelect(driver, wait)
+    dt.addToCart(driver, wait, hammer_chkbox)
+    dt.quit()
 
-
-
-
-
-
-
-
-dt = DemoTest()
-driver, wait = dt.baseCode()
-dt.searchSelect(driver, wait)
-dt.addToCart(driver,wait)
 
 
 
