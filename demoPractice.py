@@ -55,13 +55,12 @@ class DemoTest:
         driver.quit()
 
 
-if __name__ == "__main__":
-    dt = DemoTest()
-    driver, wait = dt.baseCode()
-    hammer_chkbox = dt.searchSelect(driver, wait)
-    dt.addToCart(driver, wait, hammer_chkbox)
-    dt.quit()
 
+dt = DemoTest()
+driver, wait = dt.baseCode()
+hammer_chkbox = dt.searchSelect(driver, wait)
+dt.addToCart(driver, wait, hammer_chkbox)
+dt.quit()
 
 
 
